@@ -1,0 +1,48 @@
+﻿@model List<ArtisanShop.Models.ProduitArtisanal>
+
+@{
+    ViewData["Title"] = "Liste des Produits Artisanaux";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Ajouter un Nouveau Produit</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <p>
+        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Rechercher par nom..." />
+        <input type="submit" value="Rechercher" class="btn btn-secondary" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Catégorie</th>
+            <th>Date de Création</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produit in Model)
+        {
+            <tr>
+                <td>@produit.Nom</td>
+                <td>@produit.Description</td>
+                <td>@produit.Prix €</td>
+                <td>@produit.Categorie</td>
+                <td>@produit.DateDeCreation.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@produit.Id" class="btn btn-warning">Modifier</a>
+                    <a asp-action="Details" asp-route-id="@produit.Id" class="btn btn-info">Détails</a>
+                    <a asp-action="Delete" asp-route-id="@produit.Id" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
